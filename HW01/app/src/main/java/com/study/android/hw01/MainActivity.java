@@ -40,6 +40,14 @@ public class MainActivity extends AppCompatActivity
         adapter.addItem(item6);
         SingerItem item7 = new SingerItem("선생님", "010-7777-7777", R.drawable.teacher, "male");
         adapter.addItem(item7);
+        SingerItem item8 = new SingerItem("백지선", "010-2222-2222", R.drawable.baekjisun, "male");
+        adapter.addItem(item8);
+        SingerItem item9 = new SingerItem("백지선", "010-2222-2222", R.drawable.baekjisun, "male");
+        adapter.addItem(item9);
+        SingerItem item10 = new SingerItem("백지선", "010-2222-2222", R.drawable.baekjisun, "male");
+        adapter.addItem(item10);
+        SingerItem item11 = new SingerItem("백지선", "010-2222-2222", R.drawable.baekjisun, "male");
+        adapter.addItem(item11);
 
 
         ListView listView1 = findViewById(R.id.listView1);

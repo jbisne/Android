@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        textView1.setText("Request THread .. " + index);
+                        textView1.setText("Request Thread .. " + index);
 
                         progressBar1.incrementProgressBy(1);
                     }

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.study.android.ex53_admobex"
+        applicationId "com.study.android.ex53.admobex"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -30,7 +30,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.google.firebase:firebase-ads:17.2.0'
-    implementation 'com.google.android.gms:play-services-ads:17.2.0'
 
 }
 

@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity
     ListFragment listFragment;
     ViewerFragment viewerFragment;
 
-    int[] images = {R.drawable.irin1, R.drawable.sul1, R.drawable.wen1};
+    int[] images = {R.drawable.desert, R.drawable.hydrangeas, R.drawable.jellyfish};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

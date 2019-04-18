@@ -7,27 +7,24 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_weight="0"
-        android:text="대피소 조회" />
+        android:text="지문인증"
+        android:textAlignment="center" />
+
+    <ImageView
+        android:id="@+id/iv_fingerprint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_finger" />
 
     <TextView
-        android:id="@+id/result"
+        android:id="@+id/tv_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:hint="파싱데이터 확인용"
-        android:textSize="12sp" />
-
-    <fragment
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:text="Message"
+        android:textAlignment="center" />
 
 </LinearLayout>

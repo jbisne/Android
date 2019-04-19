@@ -2,24 +2,24 @@ package com.study.android.project03;
 
 public class PharmDTO
 {
-    private String LNG;
-    private String LAT;
+    private String lng;
+    private String lat;
     private String name;
 
     public String getLNG() {
-        return LNG;
+        return lng;
     }
 
-    public void setLNG(String LNG) {
-        this.LNG = LNG;
+    public void setLNG(String lng) {
+        this.lng = lng;
     }
 
     public String getLAT() {
-        return LAT;
+        return lat;
     }
 
-    public void setLAT(String LAT) {
-        this.LAT = LAT;
+    public void setLAT(String lat) {
+        this.lat = lat;
     }
 
     public String getName() {

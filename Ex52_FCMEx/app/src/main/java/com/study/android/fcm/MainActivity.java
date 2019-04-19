@@ -3,6 +3,7 @@ package com.study.android.fcm;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity
 
         regId = FirebaseInstanceId.getInstance().getToken();
         println("regId : " + regId);
+
+        Log.i(TAG, regId);
+        // Logcat에 메시지 출력하는 방법. Log.i(TAG, "출력할것");
     }
 
     @Override

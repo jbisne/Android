@@ -12,9 +12,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -22,12 +24,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 
 
 public class MainActivity extends AppCompatActivity
@@ -40,7 +47,6 @@ public class MainActivity extends AppCompatActivity
     MarkerOptions myLocationMarker;
 
     TextView result;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -266,7 +272,7 @@ public class MainActivity extends AppCompatActivity
 //                        if(parser.getName().equals("row"))
 //                        {
 //                            check.setText(check.getText()+"고유번호 : "+OBJECTID + "\n대피소명칭 : "+SHUNT_NAM + "\n소재지 : "+ADR_NAM+
-//                                    "\n최대수용인원 : " +HOU_CNT_M+ "\n현재수용인원 : " +HOU_CNT_C+ "\n현애운영여부" +OPR_YN+ "\n전화번호 : " +TEL_NO_CN+
+//                                    "\n최대수용인원 : " +HOU_CNT_M+ "\n현재수용인원 : " +HOU_CNT_C+ "\n현재운영여부" +OPR_YN+ "\n전화번호 : " +TEL_NO_CN+
 //                                    "\n행정동코드 : " +HJD_CDE+ "\n행정동명칭 : " +HJD_NAM+ "\n대피단계 : " +SHUNT_LVL+ "\n비고 : "+REMARK+
 //                                    "\n경도 : " +LNG+ "\n위도 : " +LAT+"\n");
 //                            inrow = false;
@@ -281,6 +287,7 @@ public class MainActivity extends AppCompatActivity
             //check.setText("에러가 났습니다!");
             e.printStackTrace();
         }
+
     }
 //============== onCreate메서드 + 데이터 파싱 ====================
 

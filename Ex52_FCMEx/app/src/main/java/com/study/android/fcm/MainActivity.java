@@ -1,3 +1,6 @@
+// 회사에서 푸시를 보낼수있는 사람이 드뭄.
+// 할줄 알면 메리트가 크다.
+
 package com.study.android.fcm;
 
 import android.content.Intent;

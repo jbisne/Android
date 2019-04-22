@@ -50,7 +50,7 @@ public class PharmParser
                 tag = xpp.getName();
             } else if (event_type == XmlPullParser.TEXT) {
                 /**
-                 * 약국의 주소만 가져와본다.
+                 * 대피소의 주소만 가져와본다.
                  */
                 if(tag.equals("LNG"))
                 {
@@ -72,8 +72,8 @@ public class PharmParser
                 if (tag.equals("row"))
                 {
                     PharmDTO entity = new PharmDTO();
-                    entity.setLNG(String.valueOf(lng));
-                    entity.setLAT(String.valueOf(lat));
+                    entity.setLNG(Double.valueOf(lng));
+                    entity.setLAT(Double.valueOf(lat));
                     entity.setName(name);
 
                     list.add(entity);

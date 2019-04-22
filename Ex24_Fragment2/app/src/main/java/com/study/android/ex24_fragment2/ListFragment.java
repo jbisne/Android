@@ -58,9 +58,6 @@ public class ListFragment extends Fragment
         return rootView;
     }
 }
-
-
-
 //  onAttach
 //  내 프래그먼트가 부모 뷰에 부착이 될 때(onAttach) 부모뷰를 나타내는
 // 객체변수(context)를 가져와서 내 변수(callback)에 할당한다.

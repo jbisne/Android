@@ -8,6 +8,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.support.v4.app.FragmentManager;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -37,16 +41,17 @@ import java.util.List;
 
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends FragmentActivity
 {
     private static final String TAG = "lecture";
 
     SupportMapFragment mapFragment;
-    GoogleMap map;
+    //GoogleMap map; //내위치찾을떄 쓰던 변수
 
     MarkerOptions myLocationMarker;
 
-    private GoogleMap mMap;
+    private GoogleMap mMap;  // 대피소들 위치 구하는 변수
+    private GoogleMap map;  // 내 현재 위치 구하는 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,9 +59,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy().Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        setContentView(R.layout.activity_main);
         setUpMapIfNeeded();
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onMapReady(GoogleMap googleMap)
             {
-                Log.d(TAG, "GoogleMap is ready.");
+                Log.d(TAG, "현재 내위치 구글맵");
 
                 map = googleMap;
 
@@ -99,18 +103,22 @@ public class MainActivity extends AppCompatActivity
     }
     ////////////////////// onCreate ////////////////////
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
-
     private void setUpMapIfNeeded()
     {
         if(mMap == null)
         {
-            mMap = findViewById(R.id.map).getMap();
+            ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMapAsync(new OnMapReadyCallback()
+                    {
+                        @Override
+                        public void onMapReady(GoogleMap googleMap)
+                        {
+                            Log.d(TAG, "대피소위치 구글맵");
+
+                            mMap = googleMap;
+
+                        }
+                    });
             if (mMap != null)
             {
                 setUpMap();
@@ -134,17 +142,13 @@ public class MainActivity extends AppCompatActivity
         for(PharmDTO entity : list)
         {
             MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(entity.getLAT(), entity.getLNG()));
-
-            // 여기가 자꾸 오류나는데 궁금증이 내 위치찾는데 LatLng 쓴거같은데
-            // 1. 그럼 다른 위치찾을때는 LatLng말고 다르게 변수지정을 해줘야하나요?
-            // 2. 아니면 DTO에가서 LAT, LNG 의 변수값을 String -> Double로 해주면 되나요?
-            // LatLng는 내위치도찾고 주변위치도찾는 변수로 같이 사용안되는건가요??
+            markerOptions.position(new LatLng(entity.getLNG(), entity.getLAT()));
 
             markerOptions.title(entity.getName());
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(R.drawable.mylocation));
 
             mMap.addMarker(markerOptions);
+            Log.d(TAG,"파싱데이터 마킹 완료 로그");
         }
     }
 
@@ -238,7 +242,7 @@ public class MainActivity extends AppCompatActivity
     {
         LatLng curPoint = new LatLng(location.getLatitude(), location.getLongitude());
 
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 15));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 15));
 
         showMyLocationMarker(location);
     }
@@ -252,7 +256,7 @@ public class MainActivity extends AppCompatActivity
             myLocationMarker.title("***내 위치 ***\n");
             myLocationMarker.snippet("GPS로 확인한 위치");
             myLocationMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
-            map.addMarker(myLocationMarker);
+            mMap.addMarker(myLocationMarker);
         }
         else
         {
@@ -275,6 +279,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
+        setUpMapIfNeeded();
 
         if (map != null)
         {

@@ -15,6 +15,13 @@
         android:layout_weight="0"
         android:text="대피소 검색하기" />
 
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:hint="파싱 확인용" />
+
     <fragment
         class="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map"

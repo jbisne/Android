@@ -2,23 +2,23 @@ package com.study.android.project03;
 
 public class PharmDTO
 {
-    private Double lng; //(경도)
-    private Double lat; //(위도)
+    private double lng; //(경도)
+    private double lat; //(위도)
     private String name;
 
-    public Double getLNG() {
+    public double getLNG() {
         return lng;
     }
 
-    public void setLNG(Double lng) {
+    public void setLNG(double lng) {
         this.lng = lng;
     }
 
-    public Double getLAT() {
+    public double getLAT() {
         return lat;
     }
 
-    public void setLAT(Double lat) {
+    public void setLAT(double lat) {
         this.lat = lat;
     }
 

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         {
             for (int i=0; i<100; i++)
             {
+                //여기는 파싱
                 Log.d(TAG,"Request Thread .. " + i);
 
                 // 별도의 핸들러 클래스를 만들지 않고 바로 처리한다.
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        // 여기 런은 결과 출력
                         textView1.setText("Request Thread .. " + index);
 
                         progressBar1.incrementProgressBy(1);

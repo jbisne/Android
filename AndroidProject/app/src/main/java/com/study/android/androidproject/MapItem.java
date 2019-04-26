@@ -6,18 +6,18 @@ public class MapItem
     private String SHUNT_NAM;   // 대피소명
     private String ADR_NAM;     // 소재지(주소)
     private String TEL_NO_CN;   // 전화번호
-    private double LNG;         // 경도
-    private double LAT;         // 위도
+    private double LAT;         // 경도
+    private double LNG;         // 위도
 
     public MapItem(String OBJECTID, String SHUNT_NAM, String ADR_NAM, String TEL_NO_CN,
-                   double LNG, double LAT)
+                   double LAT, double LNG)
     {
         this.OBJECTID = OBJECTID;
         this.SHUNT_NAM = SHUNT_NAM;
         this.ADR_NAM = ADR_NAM;
         this.TEL_NO_CN = TEL_NO_CN;
-        this.LNG = LNG;
         this.LAT = LAT;
+        this.LNG = LNG;
     }
 
     public String getOBJECTID() {

@@ -52,13 +52,6 @@ public class MapItem
         this.TEL_NO_CN = TEL_NO_CN;
     }
 
-    public double getLNG() {
-        return LNG;
-    }
-
-    public void setLNG(double LNG) {
-        this.LNG = LNG;
-    }
 
     public double getLAT() {
         return LAT;
@@ -66,5 +59,13 @@ public class MapItem
 
     public void setLAT(double LAT) {
         this.LAT = LAT;
+    }
+
+    public double getLNG() {
+        return LNG;
+    }
+
+    public void setLNG(double LNG) {
+        this.LNG = LNG;
     }
 }

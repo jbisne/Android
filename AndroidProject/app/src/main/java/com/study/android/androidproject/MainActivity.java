@@ -44,12 +44,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int THREAD_ID = 10000;
 
     MapItem mapItem;
-    MapAdapter MapAdapter;
+    MapAdapter mapAdapter;
 
     // 구글 맵 참조변수 생성
     GoogleMap mMap;
 
     MarkerOptions myLocationMarker;
+    MarkerOptions markerOptions;
 
     MapHandler handler;
 
@@ -67,6 +68,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         thread.start();
         Log.d(TAG,"쓰레드 시작");
         handler = new MapHandler();
+        mapAdapter = new MapAdapter(this);
+        // ☆이거 안해줘서 mapAdapter가 밑에서 정상작동 안됫던것.
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -122,9 +125,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
                 while (parserEvent != XmlPullParser.END_DOCUMENT)
                 {
-                    Message msg = handler.obtainMessage();
-                    Bundle bundle = new Bundle();
-                    Log.d(TAG,"4");
+//                    Message msg = handler.obtainMessage();
+//                    Bundle bundle = new Bundle();
 
                     switch (parserEvent)
                     {
@@ -162,10 +164,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                             if (parser.getName().equals("REMARK")) {
                                 inREMARK = true;
                             }
-                            if (parser.getName().equals("LNG")) {
+                            if (parser.getName().equals("LAT")) {
                                 inLNG = true;
                             }
-                            if (parser.getName().equals("LAT")) {
+                            if (parser.getName().equals("LNG")) {
                                 inLAT = true;
                             }
                             if (parser.getName().equals("message")) {
@@ -177,7 +179,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                         case XmlPullParser.TEXT: // parser가 내용에 접근했을때
-                            Log.d(TAG,"5");
                             if (inOBJECTID) {
                                 // isTitle이 true일 때 태그의 내용을 저장
                                 OBJECTID = parser.getText();
@@ -233,38 +234,30 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                                 REMARK = parser.getText();
                                 inREMARK = false;
                             }
+                            if (inLAT) {
+                                // isTitle이 true일 때 태그의 내용을 저장
+                                LAT = parser.getText();
+                                inLAT = false;
+                                //Log.d(TAG,"6");
+                            }
                             if (inLNG) {
                                 // isTitle이 true일 때 태그의 내용을 저장
                                 LNG = parser.getText();
                                 inLNG = false;
                             }
-                            if (inLAT) {
-                                // isTitle이 true일 때 태그의 내용을 저장
-                                LAT = parser.getText();
-                                inLAT = false;
-                                Log.d(TAG,"6");
-                            }
                             break;
 
                         case XmlPullParser.END_TAG:
-                            Log.d(TAG,"6.5");
                             if (parser.getName().equals("row"))
                             {
-                                Log.d(TAG,"7");
+                                Message msg = handler.obtainMessage();
+                                Bundle bundle = new Bundle();
                                 bundle.putString("OBJECTID",OBJECTID);
                                 bundle.putString("SHUNT_NAM",SHUNT_NAM);
                                 bundle.putString("ADR_NAM",ADR_NAM);
-//                                bundle.putString("HOU_CNT_M",HOU_CNT_M);
-//                                bundle.putString("HOU_CNT_C",HOU_CNT_C);
-//                                bundle.putString("OPR_YN",OPR_YN);
                                 bundle.putString("TEL_NO_CN",TEL_NO_CN);
-//                                bundle.putString("HJD_CDE",HJD_CDE);
-//                                bundle.putString("HJD_NAM",HJD_NAM);
-//                                bundle.putString("SHUNT_LVL",SHUNT_LVL);
-//                                bundle.putString("REMARK",REMARK);
-                                bundle.putString("LNG",LNG);
-                                Log.d(TAG, "LNG 전송"+LNG);
                                 bundle.putString("LAT",LAT);
+                                bundle.putString("LNG",LNG);
                                 msg.setData(bundle);
                                 handler.sendMessage(msg);
                                 Log.d(TAG, "파싱데이터 전송");
@@ -291,23 +284,27 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void handleMessage(Message msg)
         {
-            Log.d(TAG,"8");
             Bundle bundle = msg.getData();
             String OBJECTID = bundle.getString("OBJECTID");
+            Log.d(TAG,"OBJECTID"+OBJECTID);
             String SHUNT_NAM = bundle.getString("SHUNT_NAM");
+            Log.d(TAG,"SHUNT_NAM"+SHUNT_NAM);
             String ADR_NAM = bundle.getString("ADR_NAM");
+            Log.d(TAG,"ADR_NAM"+ADR_NAM);
             String TEL_NO_CN = bundle.getString("TEL_NO_CN");
+            Log.d(TAG,"TEL_NO_CN"+TEL_NO_CN);
             Double LAT = Double.parseDouble(bundle.getString("LAT"));
+            Log.d(TAG,"LAT"+LAT);
             Double LNG = Double.parseDouble(bundle.getString("LNG"));
-            Log.d(TAG,"출력"+OBJECTID +LNG);
+            Log.d(TAG,"LNG"+LNG);
 
             mapItem = new MapItem(OBJECTID,SHUNT_NAM,ADR_NAM,TEL_NO_CN,LAT,LNG);
-            MapAdapter.addItem(mapItem);
-            MapAdapter.notifyDataSetChanged();
+            mapAdapter.addItem(mapItem);
+            mapAdapter.notifyDataSetChanged();
+            ////////////////////// 얘네 둘이 문제다. 주석풀면 오류난다.
 
             lat = LAT;
             lng = LNG;
-            Log.d(TAG, "로그 확인"+LNG+LAT);
 
             Log.d(TAG, "Handler 체크");
         }
@@ -330,18 +327,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 // 간단하게 위치마킹하는 예제
 //        // 서울에 대한 위치 설정
         LatLng seoul = new LatLng(lat, lng);
-
-        Log.d(TAG,"9"); // 9번 OK
 //
-//        // 구글 맵에 표시할 마커에 대한 옵션 설정
-        MarkerOptions makerOptions = new MarkerOptions();
-        makerOptions
+        // 구글 맵에 표시할 마커에 대한 옵션 설정
+        markerOptions = new MarkerOptions();
+
+        myLocationMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+
+        markerOptions
                 .position(seoul)
-                .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.");
-            Log.d(TAG,"10"); // 10번 OK
+                .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
 //
 //        // 마커를 생성한다.
-        mMap.addMarker(makerOptions);
+        mMap.addMarker(markerOptions);
 //
 //        //카메라를 서울 위치로 옮긴다.
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
@@ -481,7 +479,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (mMap != null)
         {
-            mMap.setMyLocationEnabled(false);
+            mMap.setBuildingsEnabled(false);
         }
     }
 
@@ -492,7 +490,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (mMap != null)
         {
-            mMap.setMyLocationEnabled(true);
+            mMap.setBuildingsEnabled(true);
         }
     }
 }

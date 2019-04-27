@@ -34,6 +34,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.security.AccessController.getContext;
 
@@ -67,7 +68,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         RequestThread thread = new RequestThread();
         thread.start();
         Log.d(TAG,"쓰레드 시작");
+
         handler = new MapHandler();
+
         mapAdapter = new MapAdapter(this);
         // ☆이거 안해줘서 mapAdapter가 밑에서 정상작동 안됫던것.
 
@@ -107,7 +110,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
             String OBJECTID = "", SHUNT_NAM = "", ADR_NAM = "", HOU_CNT_M = "", HOU_CNT_C = "";
             String OPR_YN = "", TEL_NO_CN = "", HJD_CDE = "", HJD_NAM = "", SHUNT_LVL = "";
-            String REMARK = "", LAT = "", LNG = "";
+            String REMARK = "", LAT = "", LNG = "", row="";
 
             try
             {
@@ -121,12 +124,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 parser.setInput(url.openStream(), null);
                 int parserEvent = parser.getEventType();
                 System.out.println("파싱을 시작합니다.");
-                Log.d(TAG,"3");
 
                 while (parserEvent != XmlPullParser.END_DOCUMENT)
                 {
-//                    Message msg = handler.obtainMessage();
-//                    Bundle bundle = new Bundle();
+                    //Message msg = handler.obtainMessage();
+                    //Bundle bundle = new Bundle();
+                    // 선생님이 밑에서 쓰라고 막아두신곳.
 
                     switch (parserEvent)
                     {
@@ -252,6 +255,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                             {
                                 Message msg = handler.obtainMessage();
                                 Bundle bundle = new Bundle();
+
                                 bundle.putString("OBJECTID",OBJECTID);
                                 bundle.putString("SHUNT_NAM",SHUNT_NAM);
                                 bundle.putString("ADR_NAM",ADR_NAM);
@@ -269,9 +273,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                                    inrow = false;
                             }
                             break;
+
                     }
                     parserEvent = parser.next();
                 }
+                //handler.post(new Runnable() 써줘야하는건가
             } catch (Exception e) {
                 //check.setText("에러가 났습니다!");
                 e.printStackTrace();
@@ -302,7 +308,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             mapAdapter.addItem(mapItem);
             mapAdapter.notifyDataSetChanged();
             ////////////////////// 얘네 둘이 문제다. 주석풀면 오류난다.
+            // 위에서 변수 지정해주니 됨.
 
+            mapItem.setLAT(lat);
+            mapItem.getLAT();
+            mapItem.setLNG(lng);
+            mapItem.getLNG();
             lat = LAT;
             lng = LNG;
 
@@ -317,7 +328,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap)
     {
         Log.d(TAG, "GoogleMap is ready.");
-        // 1번 태그 이후에 자꾸 바로 이리로온다.
 
         // 구글 맵 객체를 불러온다.
         mMap = googleMap;
@@ -326,18 +336,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
 // 간단하게 위치마킹하는 예제
 //        // 서울에 대한 위치 설정
+
         LatLng seoul = new LatLng(lat, lng);
 //
         // 구글 맵에 표시할 마커에 대한 옵션 설정
         markerOptions = new MarkerOptions();
 
-        myLocationMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
-
-        markerOptions
+//
+            markerOptions
                 .position(seoul)
                 .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
-//
+
 //        // 마커를 생성한다.
         mMap.addMarker(markerOptions);
 //

@@ -70,8 +70,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         thread.start();
         Log.d(TAG,"쓰레드 시작");
 
-        Location location;
-
         handler = new MapHandler();
 
         mapAdapter = new MapAdapter(this);
@@ -313,14 +311,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             ////////////////////// 얘네 둘이 문제다. 주석풀면 오류난다.
             // 위에서 변수 지정해주니 됨.
 
-            mapItem.setLAT(lat);
-            mapItem.setLNG(lng);
-            mapItem.getLAT();
-            mapItem.getLNG();
-            lat = LAT;
-            lng = LNG;
-
-
             Log.d(TAG, "Handler 체크");
         }
     }
@@ -340,19 +330,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 // 간단하게 위치마킹하는 예제
 //        // 서울에 대한 위치 설정
 
-        LatLng seoul = new LatLng(handler.s, lng);
+        //LatLng seoul = new LatLng(handler.s, lng);
 //
         // 구글 맵에 표시할 마커에 대한 옵션 설정
-        markerOptions = new MarkerOptions();
+        //markerOptions = new MarkerOptions();
 
 //
-            markerOptions
-                .position(seoul)
-                .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
+//            markerOptions
+//                .position(seoul)
+//                .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.")
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.mylocation));
 
 //        // 마커를 생성한다.
-        mMap.addMarker(markerOptions);
+        //mMap.addMarker(markerOptions);
 
 //        //카메라를 서울 위치로 옮긴다.
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));

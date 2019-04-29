@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/popup_reflesh"
+    android:pivotX="10%"
+    android:pivotY="10%"
+    android:fromDegrees="0"
+    android:toDegrees="5000" >
+</animated-rotate>
+
+<!--From에서 to까지의 차이가 클수록 회전속도가 빨라진다.-->

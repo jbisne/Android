@@ -2,6 +2,7 @@ package com.study.android.androidproject;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -68,6 +69,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         RequestThread thread = new RequestThread();
         thread.start();
         Log.d(TAG,"쓰레드 시작");
+
+        Location location;
 
         handler = new MapHandler();
 
@@ -311,16 +314,16 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             // 위에서 변수 지정해주니 됨.
 
             mapItem.setLAT(lat);
-            mapItem.getLAT();
             mapItem.setLNG(lng);
+            mapItem.getLAT();
             mapItem.getLNG();
             lat = LAT;
             lng = LNG;
 
+
             Log.d(TAG, "Handler 체크");
         }
     }
-
 
     ///////////////////// onCreate ///////////////////////////
 
@@ -337,7 +340,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 // 간단하게 위치마킹하는 예제
 //        // 서울에 대한 위치 설정
 
-        LatLng seoul = new LatLng(lat, lng);
+        LatLng seoul = new LatLng(handler.s, lng);
 //
         // 구글 맵에 표시할 마커에 대한 옵션 설정
         markerOptions = new MarkerOptions();
@@ -350,7 +353,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
 //        // 마커를 생성한다.
         mMap.addMarker(markerOptions);
-//
+
 //        //카메라를 서울 위치로 옮긴다.
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
 //

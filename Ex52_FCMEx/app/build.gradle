@@ -27,7 +27,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // For FCM
-    // implementation 'com.google.firebase:firebase-core:16.0.1'
+     implementation 'com.google.firebase:firebase-core:16.0.1'
     // core는 모든게(전체) 사용가능. messaging은 조금 덜함.
     implementation 'com.google.firebase:firebase-messaging:17.6.0'
 

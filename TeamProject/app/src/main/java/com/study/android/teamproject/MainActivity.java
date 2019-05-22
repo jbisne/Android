@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity
         search = new Search();
 
         getSupportFragmentManager()
-                .beginTransaction().replace(R.id.container,home).commit();
+                .beginTransaction().replace(R.id.container, home).commit();
 
         // Set TabSelectedListener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()

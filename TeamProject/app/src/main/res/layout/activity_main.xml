@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -17,6 +15,11 @@
         >
 
     </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabMenu"

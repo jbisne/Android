@@ -47,27 +47,34 @@ public class SaleList extends Fragment
     SaleAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState)
     {
         Log.d(TAG,"판매 리스트 출력");
 
-        adapter = new SaleAdapter(getContext());
-        // 여기! new SingerAdapter(this);인데 getContext()넣으니까 된다!
+        ViewGroup rootView =
+                (ViewGroup) inflater.inflate(R.layout.fragment_salelist, container, false);
 
-        SaleItem item1 = new SaleItem("모모", "24", R.drawable.momo);
-        adapter.addItem(item1);
+        return rootView;
 
-        SaleItem item2 = new SaleItem("슬기", "24", R.drawable.sul1);
-        adapter.addItem(item2);
-
-        View view = inflater.inflate(R.layout.fragment_salelist, null) ;
-
-        //final MyAdapter adapter= new MyAdapter();
-
-        ListView listview = (ListView) view.findViewById(R.id.salelist) ;
-        listview.setAdapter(adapter) ;
-
-        return view;
+//        adapter = new SaleAdapter(getContext());
+//        // 여기! new SingerAdapter(this);인데 getContext()넣으니까 된다!
+//
+//        SaleItem item1 = new SaleItem("모모", "24", R.drawable.momo);
+//        adapter.addItem(item1);
+//
+//        SaleItem item2 = new SaleItem("슬기", "24", R.drawable.sul1);
+//        adapter.addItem(item2);
+//
+//        View view = inflater.inflate(R.layout.fragment_salelist, null) ;
+//
+//        //final MyAdapter adapter= new MyAdapter();
+//
+//        ListView listview = (ListView) view.findViewById(R.id.salelist) ;
+//        listview.setAdapter(adapter) ;
+//
+//        return view;
     }
 
 //    class MyAdapter extends BaseAdapter

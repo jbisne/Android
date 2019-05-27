@@ -1,5 +1,6 @@
 package com.study.android.teamproject;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,14 +20,35 @@ public class Home extends Fragment
     SaleList saleList;
     FreeList freeList;
 
+//    @Override
+//    public void onCreate(Bundle savedInstanceState)
+//    {
+//        super.onCreate(savedInstanceState);
+//
+//        Intent intent = new Intent(this, WriteActivity.class);
+//        startActivity(intent);
+//    }
+//    ->액티비티에서 쓰는것, 프래그먼트에선 안됨
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState)
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState)
     {
-        ViewGroup rootView =
+        final ViewGroup rootView =
                 (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+
+        Button button = rootView.findViewById(R.id.WriteButton);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getActivity(),WriteActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tabLayout = rootView.findViewById(R.id.listtab);
 //      tabLayout = rootView(R.id.listtab);

@@ -48,6 +48,7 @@ public class Home extends Fragment
                 Intent intent = new Intent(getActivity(),WriteActivity.class);
                 startActivity(intent);
             }
+            // 데이터 넘기기없이 화면만 넘긴것!
         });
 
         tabLayout = rootView.findViewById(R.id.listtab);

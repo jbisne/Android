@@ -165,7 +165,7 @@
                 android:textAlignment="viewStart" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/logOutButton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

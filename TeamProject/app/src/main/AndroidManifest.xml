@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ModifyActivity"></activity>
         <activity android:name=".WriteActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -16,6 +16,11 @@ import android.widget.Toast;
 public class Mypage extends Fragment
 {
     private static final String TAG = "teamproject";
+//    여기다가 전역변수로 지저해놓으니까 APP이 아예 튕긴다!!
+//    Fragment는 이러는듯? 잘 기억해둘것!
+//    final String[] items = {"YES", "NO"};
+//
+//    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -36,34 +41,55 @@ public class Mypage extends Fragment
             }
         });
 
-
         Button button2 = rootView.findViewById(R.id.logOutButton);
         button2.setOnClickListener(new View.OnClickListener()
         {
+            final String[] items = {"예", "아니오"};
 
-        });
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        final String[] items = {"YES", "NO"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setTitle("title");
-        builder.setItems(items, new DialogInterface.OnClickListener()
-        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(which ==0){
-                    /*..YES..*/
-                }
-                else{
-                    /*...NO...*/
-                }
+            public void onClick(View v)
+            {
+
+                builder.setTitle("로그아웃 하시겠습니까?");
+                builder.setItems(items, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which ==0){
+                            /*..YES..*/
+                        }
+                        else{
+                            /*...NO...*/
+                        }
+                    }
+                });
+                builder.show();
             }
         });
-        builder.show();
+//        final String[] items = {"YES", "NO"};
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+//        builder.setTitle("title");
+//        builder.setItems(items, new DialogInterface.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                if(which ==0){
+//                    /*..YES..*/
+//                }
+//                else{
+//                    /*...NO...*/
+//                }
+//            }
+//        });
+//        builder.show();
 
 
         return rootView;
     }
+
 
 }

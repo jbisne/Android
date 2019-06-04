@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity
     TextView textView;
 
     String[] items = { "Momo", "Mina", "Sana", "Nayeon", "JiHyo",
-                        "Tsuyu", "Chayeong", "Jungyeon"};
+                        "Tsuyu", "Chayeong", "Jungyeon", "Dahyeon"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

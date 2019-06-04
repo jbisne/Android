@@ -9,14 +9,12 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="174dp"
-        android:layout_height="53dp"
-        android:text="선택한 값" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="선택한값" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown" />
-
+        android:layout_height="wrap_content" />
 </LinearLayout>

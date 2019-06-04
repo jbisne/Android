@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity
     EditText editText2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity
         listView1.setAdapter(adapter);
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+            {
                 SingerItem item = (SingerItem) adapter.getItem(position);
                 Toast.makeText(getApplicationContext(),
                         "selected : " + item.getName(),
